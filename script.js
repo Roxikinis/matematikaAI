@@ -22,11 +22,21 @@ function displayUserMessage(message) {
   chatOutput.scrollTop = chatOutput.scrollHeight; // Scroll to the bottom
 }
 
-// Simulate AI response (replace with API call later)
-function getAnswerFromAI(question) {
-  // For now, simulate a math answer based on user input
-  const aiResponse = `AI atsakymas: ${simulateMathAnswer(question)}`;
-  displayAIMessage(aiResponse);
+// Get the answer from Math.js API and display it
+async function getAnswerFromAI(question) {
+  try {
+    // Make API request to Math.js to evaluate the expression
+    const response = await fetch(`https://api.mathjs.org/v4/?expr=${encodeURIComponent(question)}`);
+    const data = await response.json();
+
+    // Display the AI answer
+    const aiResponse = `AI atsakymas: ${data.result}`;
+    displayAIMessage(aiResponse);
+  } catch (error) {
+    // Handle error if the API call fails
+    const aiResponse = 'Atsiprašome, įvyko klaida bandant atlikti skaičiavimą.';
+    displayAIMessage(aiResponse);
+  }
 }
 
 // Display AI response in the chatbox
@@ -36,17 +46,4 @@ function displayAIMessage(message) {
   aiMessageDiv.textContent = message;
   chatOutput.appendChild(aiMessageDiv);
   chatOutput.scrollTop = chatOutput.scrollHeight; // Scroll to the bottom
-}
-
-// Simulate generating a math answer (replace this with an actual math AI)
-function simulateMathAnswer(question) {
-  // Simple simulation: If question contains numbers and a '+' sign, return sum
-  const match = question.match(/(\d+)\s*\+\s*(\d+)/);
-  if (match) {
-    const num1 = parseInt(match[1], 10);
-    const num2 = parseInt(match[2], 10);
-    return num1 + num2;
-  } else {
-    return 'Atsiprašome, nesu tikras, kaip atsakyti į šį klausimą.';
-  }
 }
