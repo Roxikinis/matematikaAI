@@ -27,13 +27,24 @@ async function getAnswerFromAI(question) {
   try {
     // Make API request to Math.js to evaluate the expression
     const response = await fetch(`https://api.mathjs.org/v4/?expr=${encodeURIComponent(question)}`);
-    const data = await response.json();
+    
+    // Check if the API request was successful
+    if (!response.ok) {
+      throw new Error('API request failed');
+    }
 
-    // Display the AI answer
-    const aiResponse = `AI atsakymas: ${data.result}`;
-    displayAIMessage(aiResponse);
+    const data = await response.json();
+    
+    // Check if the API returned a result
+    if (data.result) {
+      const aiResponse = `AI atsakymas: ${data.result}`;
+      displayAIMessage(aiResponse);
+    } else {
+      throw new Error('Invalid result');
+    }
   } catch (error) {
-    // Handle error if the API call fails
+    // Display an error message if the API call fails
+    console.error('Error fetching result:', error);
     const aiResponse = 'Atsiprašome, įvyko klaida bandant atlikti skaičiavimą.';
     displayAIMessage(aiResponse);
   }
