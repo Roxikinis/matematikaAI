@@ -5,12 +5,70 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Matematika AI</title>
   <link rel="stylesheet" href="styles.css">
+  <script src="https://static.elfsight.com/platform/platform.js" async></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.7/MathJax.js?config=TeX-MML-AM_CHTML" type="text/javascript"></script>
+  <style>
+    /* Styling for editable text windows */
+    .editable-text {
+      border: 1px solid #ccc;
+      padding: 10px;
+      width: 80%;
+      margin: 20px auto;
+      height: 150px;
+      overflow-y: auto;
+    }
+    /* Style for chatbot */
+    .elfsight-widget-container {
+      z-index: 9999; /* Ensure chatbot stays on top */
+    }
+  </style>
 </head>
 <body>
 
+  <!-- Editable text window above the chatbot -->
+  <div id="editable-text-top" class="editable-text" contenteditable="true">
+    Įrašykite tekstą čia (virš chatbot)...
+  </div>
+
   <!-- Elfsight AI Chatbot | Untitled AI Chatbot -->
-  <script src="https://static.elfsight.com/platform/platform.js" async></script>
   <div class="elfsight-app-53d68f67-a4ea-4aa8-8706-bf244fadf6b1" data-elfsight-app-lazy></div>
+
+  <!-- Editable text window below the chatbot -->
+  <div id="editable-text-bottom" class="editable-text" contenteditable="true">
+    Įrašykite tekstą čia (po chatbot)...
+  </div>
+
+  <script>
+    // Center the Elfsight chatbox
+    document.addEventListener("DOMContentLoaded", function() {
+      let chatbox = document.querySelector(".elfsight-widget-container");
+      if (chatbox) {
+        chatbox.style.position = "fixed";
+        chatbox.style.top = "50%";
+        chatbox.style.left = "50%";
+        chatbox.style.transform = "translate(-50%, -50%)";
+      }
+    });
+
+    // Function to format math expressions in chat messages
+    function formatMathInMessage(message) {
+      const mathRegex = /\[.*?\]/g; // Match LaTeX math expressions within square brackets
+      const formattedMessage = message.replace(mathRegex, function(mathExpr) {
+        return '\\(' + mathExpr.slice(1, -1) + '\\)'; // Convert to inline math with \( ... \)
+      });
+      return formattedMessage;
+    }
+
+    // Example of how to apply MathJax to formatted message
+    document.addEventListener('DOMContentLoaded', function() {
+      const chatOutput = document.querySelector(".elfsight-widget-container"); // Adjust if needed
+      if (chatOutput) {
+        chatOutput.addEventListener("DOMNodeInserted", function() {
+          MathJax.Hub.Queue(["Typeset", MathJax.Hub]); // Rerun MathJax after new content is added
+        });
+      }
+    });
+  </script>
 
 </body>
 </html>
