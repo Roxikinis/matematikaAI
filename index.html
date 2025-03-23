@@ -1,74 +1,74 @@
 <!DOCTYPE html>
 <html lang="lt">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Matematika AI</title>
-  <link rel="stylesheet" href="styles.css">
-  <script src="https://static.elfsight.com/platform/platform.js" async></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.7/MathJax.js?config=TeX-MML-AM_CHTML" type="text/javascript"></script>
-  <style>
-    /* Styling for editable text windows */
-    .editable-text {
-      border: 1px solid #ccc;
-      padding: 10px;
-      width: 80%;
-      margin: 20px auto;
-      height: 150px;
-      overflow-y: auto;
-    }
-    /* Style for chatbot */
-    .elfsight-widget-container {
-      z-index: 9999; /* Ensure chatbot stays on top */
-    }
-  </style>
+    <meta charset="UTF-8"/>
+    <title>Matematika AI</title>
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    <link rel="stylesheet" href="matematika-ai.css">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="anonymous"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        WebFont.load({
+            google: { families: ["Open Sans:300,400,600,700", "Roboto:300,regular,500"] }
+        });
+    </script>
+    
+    <!-- MathJax for Mathematical Formatting -->
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.7/MathJax.js?config=TeX-MML-AM_CHTML" type="text/javascript"></script>
+    
+    <!-- Elfsight Chatbot -->
+    <script src="https://static.elfsight.com/platform/platform.js" async></script>
+    
+    <style>
+        /* Center chatbot but keep it fixed in place while scrolling */
+        .elfsight-app-53d68f67-a4ea-4aa8-8706-bf244fadf6b1 {
+            position: absolute;
+            top: 60vh;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+        }
+    </style>
 </head>
 <body>
-
-  <!-- Editable text window above the chatbot -->
-  <div id="editable-text-top" class="editable-text" contenteditable="true">
-    Įrašykite tekstą čia (virš chatbot)...
-  </div>
-
-  <!-- Elfsight AI Chatbot | Untitled AI Chatbot -->
-  <div class="elfsight-app-53d68f67-a4ea-4aa8-8706-bf244fadf6b1" data-elfsight-app-lazy></div>
-
-  <!-- Editable text window below the chatbot -->
-  <div id="editable-text-bottom" class="editable-text" contenteditable="true">
-    Įrašykite tekstą čia (po chatbot)...
-  </div>
-
-  <script>
-    // Center the Elfsight chatbox
-    document.addEventListener("DOMContentLoaded", function() {
-      let chatbox = document.querySelector(".elfsight-widget-container");
-      if (chatbox) {
-        chatbox.style.position = "fixed";
-        chatbox.style.top = "50%";
-        chatbox.style.left = "50%";
-        chatbox.style.transform = "translate(-50%, -50%)";
-      }
-    });
-
-    // Function to format math expressions in chat messages
-    function formatMathInMessage(message) {
-      const mathRegex = /\[.*?\]/g; // Match LaTeX math expressions within square brackets
-      const formattedMessage = message.replace(mathRegex, function(mathExpr) {
-        return '\\(' + mathExpr.slice(1, -1) + '\\)'; // Convert to inline math with \( ... \)
-      });
-      return formattedMessage;
-    }
-
-    // Example of how to apply MathJax to formatted message
-    document.addEventListener('DOMContentLoaded', function() {
-      const chatOutput = document.querySelector(".elfsight-widget-container"); // Adjust if needed
-      if (chatOutput) {
-        chatOutput.addEventListener("DOMNodeInserted", function() {
-          MathJax.Hub.Queue(["Typeset", MathJax.Hub]); // Rerun MathJax after new content is added
-        });
-      }
-    });
-  </script>
-
+    <!-- Navigation Bar -->
+    <div class="navigation-bar w-nav">
+        <div class="w-container">
+            <a href="/" class="brand-link w-nav-brand">
+                <h1 class="brand-text">Matematika AI</h1>
+            </a>
+            <nav role="navigation" class="navigation-menu w-nav-menu">
+                <a href="#ai-helper" class="navigation-link w-nav-link">AI Pagalbininkas</a>
+                <a href="#about" class="navigation-link w-nav-link">Apie Mus</a>
+            </nav>
+        </div>
+    </div>
+    
+    <!-- Hero Section -->
+    <div class="hero-section centered">
+        <div class="w-container">
+            <h1 class="hero-heading">MATEMATIKA AI</h1>
+            <p class="hero-subheading">Dirbtinio intelekto pagalbininkas matematikai</p>
+        </div>
+    </div>
+    
+    <!-- Elfsight AI Chatbot -->
+    <div class="elfsight-app-53d68f67-a4ea-4aa8-8706-bf244fadf6b1" data-elfsight-app-lazy></div>
+    
+    <!-- Footer -->
+    <div id="about" class="footer">
+        <div class="w-container">
+            <h5>Apie Matematika AI</h5>
+            <p>Matematika AI padeda mokiniams išspręsti uždavinius, kurių jie negali išspręsti patys.</p>
+        </div>
+    </div>
+    
+    <!-- JavaScript Files -->
+    <script src="matematika-ai1.js"></script>
+    <script src="matematika-ai2.js"></script>
+    <script src="matematika-ai3.js"></script>
 </body>
 </html>
