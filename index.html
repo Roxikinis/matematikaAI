@@ -1,74 +1,46 @@
 <!DOCTYPE html>
 <html lang="lt">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Matematika AI</title>
-  <link rel="stylesheet" href="styles.css">
-  <script src="https://static.elfsight.com/platform/platform.js" async></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.7/MathJax.js?config=TeX-MML-AM_CHTML" type="text/javascript"></script>
-  <style>
-    /* Styling for editable text windows */
-    .editable-text {
-      border: 1px solid #ccc;
-      padding: 10px;
-      width: 80%;
-      margin: 20px auto;
-      height: 150px;
-      overflow-y: auto;
-    }
-    /* Style for chatbot */
-    .elfsight-widget-container {
-      z-index: 9999; /* Ensure chatbot stays on top */
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Tekstiniai Uždaviniai</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Keep Webflow styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f5f5f5;
+        }
+        .container {
+            width: 80%;
+            max-width: 800px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .chatbot-container {
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
-
-  <!-- Editable text window above the chatbot -->
-  <div id="editable-text-top" class="editable-text" contenteditable="true">
-    Įrašykite tekstą čia (virš chatbot)...
-  </div>
-
-  <!-- Elfsight AI Chatbot | Untitled AI Chatbot -->
-  <div class="elfsight-app-53d68f67-a4ea-4aa8-8706-bf244fadf6b1" data-elfsight-app-lazy></div>
-
-  <!-- Editable text window below the chatbot -->
-  <div id="editable-text-bottom" class="editable-text" contenteditable="true">
-    Įrašykite tekstą čia (po chatbot)...
-  </div>
-
-  <script>
-    // Center the Elfsight chatbox
-    document.addEventListener("DOMContentLoaded", function() {
-      let chatbox = document.querySelector(".elfsight-widget-container");
-      if (chatbox) {
-        chatbox.style.position = "fixed";
-        chatbox.style.top = "50%";
-        chatbox.style.left = "50%";
-        chatbox.style.transform = "translate(-50%, -50%)";
-      }
-    });
-
-    // Function to format math expressions in chat messages
-    function formatMathInMessage(message) {
-      const mathRegex = /\[.*?\]/g; // Match LaTeX math expressions within square brackets
-      const formattedMessage = message.replace(mathRegex, function(mathExpr) {
-        return '\\(' + mathExpr.slice(1, -1) + '\\)'; // Convert to inline math with \( ... \)
-      });
-      return formattedMessage;
-    }
-
-    // Example of how to apply MathJax to formatted message
-    document.addEventListener('DOMContentLoaded', function() {
-      const chatOutput = document.querySelector(".elfsight-widget-container"); // Adjust if needed
-      if (chatOutput) {
-        chatOutput.addEventListener("DOMNodeInserted", function() {
-          MathJax.Hub.Queue(["Typeset", MathJax.Hub]); // Rerun MathJax after new content is added
-        });
-      }
-    });
-  </script>
-
+    <div class="container">
+        <h1>AI Tekstiniai Uždaviniai</h1>
+        <p>Įveskite savo uždavinį į žemiau esantį pokalbį, kad gautumėte atsakymą!</p>
+        <div class="chatbot-container">
+            <!-- Elfsight Chatbot Widget -->
+            <div class="elfsight-app" data-elfsight-app-lazy></div>
+            <script src="https://apps.elfsight.com/p/platform.js" defer></script>
+        </div>
+    </div>
 </body>
 </html>
