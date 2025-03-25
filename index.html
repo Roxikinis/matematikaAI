@@ -1,79 +1,140 @@
 <!DOCTYPE html>
-<html lang="lt">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Matematika AI</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <h1>MATEMATIKA AI</h1>
-        <p>AI pagalbininkas</p>
-        <nav>
-            <a href="#apie">Apie mus</a>
-        </nav>
-    </header>
+    <!-- Loading Screen -->
+    <div class="loading-screen">
+        <div class="loader"></div>
+    </div>
 
-    <main>
-        <section class="intro">
-            <h2>PRadėk darbą</h2>
-            <p>A free responsive template by Webflow</p>
-            <button>PRadėk darbą</button>
-        </section>
+    <!-- Cursor Effect -->
+    <div class="custom-cursor"></div>
 
-        <section class="features">
-            <div class="feature">
-                <h3>Graphic Design</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.</p>
-            </div>
-            <div class="feature">
-                <h3>NESUKČIAUK</h3>
-                <p>Šis dirbtinio intelekto įrankis yra skirtas padėti mokiniams išspręsti uždavinius, kurių jiems nepavyko išspręsti patiems.</p>
-            </div>
-            <div class="feature">
-                <h3>NEPAVYKO?</h3>
-                <p>Nesijaudink, jeigu dirbtinis intelektas atsakė neteisingai arba neatsakė. Bandyk dar kartą. Verta bandyti tris kartus.</p>
-            </div>
-        </section>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="logo glow-text">Matematika AI</div>
+        <div class="nav-toggle">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#home" class="glow-link">Pradžia</a></li>
+            <li><a href="#about" class="glow-link">About</a></li>
+            <li><a href="#skills" class="glow-link">Skills</a></li>
+            <li><a href="#projects" class="glow-link">Projects</a></li>
+            <li><a href="#contact" class="glow-link">Contact</a></li>
+        </ul>
+        <button id="theme-toggle" class="theme-toggle glow-button">
+            <i class="fas fa-moon"></i>
+        </button>
+    </nav>
 
-        <section class="cta">
-            <h2>Nori pradėti darbą?</h2>
-            <p>Spausk roboto mygtuką apačioje, dešinėje pusėje</p>
-        </section>
+    <!-- Notification System -->
+    <div id="notification" class="notification"></div>
 
-        <section class="tabs">
-            <div class="tab-buttons">
-                <button class="tab-button active" data-tab="1">Tab Button 1</button>
-                <button class="tab-button" data-tab="2">Tab Button 2</button>
-                <button class="tab-button" data-tab="3">Tab Button 3</button>
+    <!-- Home Section -->
+    <section id="home" class="home">
+        <div class="particle-background"></div>
+        <div class="content">
+            <h1 class="glitch" data-text="Creative Developer">Matematika AI</h1>
+          <p class="typing-text"></p></br>
+            <div class="cta-buttons">
+                <a href="#contact" class="glow-button">Hire Me</a>
+                <a href="#projects" class="glow-button outline">View Work</a>
             </div>
-            <div class="tab-content">
-                <div class="tab-pane active" id="tab-1">
-                    <h3>Tab Section</h3>
-                    <p>This is some text inside of a div block.</p>
+        </div>
+        
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <h2 class="section-title glow-text">About Me</h2>
+        <div class="about-content">
+            <div class="profile-card" data-tilt>
+                <img src="https://i.imgur.com/T7Am8ag.jpeg" alt="Profile">
+                <div class="social-links">
+                    <a href="#" class="glow-icon"><i class="fab fa-github"></i></a>
+                    <a href="#" class="glow-icon"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" class="glow-icon"><i class="fab fa-twitter"></i></a>
                 </div>
-                <div class="tab-pane" id="tab-2">
-                    <h3>Some Title Here</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.</p>
-                </div>
-                <div class="tab-pane" id="tab-3">
-                    <h3>Heading</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.</p>
+            </div>
+            <div class="about-text">
+                <p>Creative developer with a passion for building beautiful and functional websites.</p>
+                <div class="stats">
+                    <div class="stat-item">
+                        <h3 class="counter" data-target="50">0</h3>
+                        <p>Projects</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3 class="counter" data-target="30">0</h3>
+                        <p>Clients</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3 class="counter" data-target="5">0</h3>
+                        <p>Years</p>
+                    </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section class="about" id="apie">
-            <h2>Apie Matematika AI</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.</p>
-        </section>
-    </main>
+    
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+        <h2 class="section-title glow-text">Projects</h2>
+        <div class="filter-buttons">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="web">Web</button>
+            <button class="filter-btn" data-filter="app">App</button>
+            <button class="filter-btn" data-filter="design">Design</button>
+        </div>
+        <div class="projects-grid">
+            <div class="project-card" data-category="web">
+                <img src="https://i.imgur.com/Ad5BiYU.jpeg" alt="Project 1">
+                <div class="project-info">
+                    <h3>Project One</h3>
+                    <p>Web Development</p>
+                    <a href="#" class="glow-button">View Project</a>
+                </div>
+            </div>
+            <div class="project-card" data-category="app">
+                <img src="https://i.imgur.com/iikMBQL.jpeg" alt="Project 2">
+                <div class="project-info">
+                    <h3>Project Two</h3>
+                    <p>App Development</p>
+                    <a href="#" class="glow-button">View Project</a>
+                </div>
+            </div>
+            <div class="project-card" data-category="design">
+                <img src="https://i.imgur.com/ONHc6yC.jpeg" alt="Project 3">
+                <div class="project-info">
+                    <h3>Project Three</h3>
+                    <p>UI/UX Design</p>
+                    <a href="#" class="glow-button">View Project</a>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <footer>
-        <p>Copyright Velocity Inc. Made in Webflow.</p>
-    </footer>
+    <!-- Contact Section -->
+    
+<!-- Footer Section -->
+<footer class="footer">
+    <p>&copy; Matematika AI 2025</p>
+</footer>
 
-    <script src="scripts.js"></script>
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="back-to-top glow-button">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script src="script.js"></script>
 </body>
 </html>
