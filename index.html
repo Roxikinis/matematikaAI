@@ -1,74 +1,79 @@
 <!DOCTYPE html>
 <html lang="lt">
 <head>
-    <meta charset="UTF-8"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Matematika AI</title>
-    <meta content="width=device-width, initial-scale=1" name="viewport"/>
-    <link rel="stylesheet" href="matematika-ai.css">
-    
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com" rel="preconnect"/>
-    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="anonymous"/>
-    <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script>
-    <script type="text/javascript">
-        WebFont.load({
-            google: { families: ["Open Sans:300,400,600,700", "Roboto:300,regular,500"] }
-        });
-    </script>
-    
-    <!-- MathJax for Mathematical Formatting -->
-    <script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.7/MathJax.js?config=TeX-MML-AM_CHTML" type="text/javascript"></script>
-    
-    <!-- Elfsight Chatbot -->
-    <script src="https://static.elfsight.com/platform/platform.js" async></script>
-    
-    <style>
-        /* Center chatbot but keep it fixed in place while scrolling */
-        .elfsight-app-53d68f67-a4ea-4aa8-8706-bf244fadf6b1 {
-            position: absolute;
-            top: 60vh;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 9999;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Navigation Bar -->
-    <div class="navigation-bar w-nav">
-        <div class="w-container">
-            <a href="/" class="brand-link w-nav-brand">
-                <h1 class="brand-text">Matematika AI</h1>
-            </a>
-            <nav role="navigation" class="navigation-menu w-nav-menu">
-                <a href="#ai-helper" class="navigation-link w-nav-link">AI Pagalbininkas</a>
-                <a href="#about" class="navigation-link w-nav-link">Apie Mus</a>
-            </nav>
-        </div>
-    </div>
-    
-    <!-- Hero Section -->
-    <div class="hero-section centered">
-        <div class="w-container">
-            <h1 class="hero-heading">MATEMATIKA AI</h1>
-            <p class="hero-subheading">Dirbtinio intelekto pagalbininkas matematikai</p>
-        </div>
-    </div>
-    
-    <!-- Elfsight AI Chatbot -->
-    <div class="elfsight-app-53d68f67-a4ea-4aa8-8706-bf244fadf6b1" data-elfsight-app-lazy></div>
-    
-    <!-- Footer -->
-    <div id="about" class="footer">
-        <div class="w-container">
-            <h5>Apie Matematika AI</h5>
-            <p>Matematika AI padeda mokiniams išspręsti uždavinius, kurių jie negali išspręsti patys.</p>
-        </div>
-    </div>
-    
-    <!-- JavaScript Files -->
-    <script src="matematika-ai1.js"></script>
-    <script src="matematika-ai2.js"></script>
-    <script src="matematika-ai3.js"></script>
+    <header>
+        <h1>MATEMATIKA AI</h1>
+        <p>AI pagalbininkas</p>
+        <nav>
+            <a href="#apie">Apie mus</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="intro">
+            <h2>PRadėk darbą</h2>
+            <p>A free responsive template by Webflow</p>
+            <button>PRadėk darbą</button>
+        </section>
+
+        <section class="features">
+            <div class="feature">
+                <h3>Graphic Design</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.</p>
+            </div>
+            <div class="feature">
+                <h3>NESUKČIAUK</h3>
+                <p>Šis dirbtinio intelekto įrankis yra skirtas padėti mokiniams išspręsti uždavinius, kurių jiems nepavyko išspręsti patiems.</p>
+            </div>
+            <div class="feature">
+                <h3>NEPAVYKO?</h3>
+                <p>Nesijaudink, jeigu dirbtinis intelektas atsakė neteisingai arba neatsakė. Bandyk dar kartą. Verta bandyti tris kartus.</p>
+            </div>
+        </section>
+
+        <section class="cta">
+            <h2>Nori pradėti darbą?</h2>
+            <p>Spausk roboto mygtuką apačioje, dešinėje pusėje</p>
+        </section>
+
+        <section class="tabs">
+            <div class="tab-buttons">
+                <button class="tab-button active" data-tab="1">Tab Button 1</button>
+                <button class="tab-button" data-tab="2">Tab Button 2</button>
+                <button class="tab-button" data-tab="3">Tab Button 3</button>
+            </div>
+            <div class="tab-content">
+                <div class="tab-pane active" id="tab-1">
+                    <h3>Tab Section</h3>
+                    <p>This is some text inside of a div block.</p>
+                </div>
+                <div class="tab-pane" id="tab-2">
+                    <h3>Some Title Here</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.</p>
+                </div>
+                <div class="tab-pane" id="tab-3">
+                    <h3>Heading</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="about" id="apie">
+            <h2>Apie Matematika AI</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.</p>
+        </section>
+    </main>
+
+    <footer>
+        <p>Copyright Velocity Inc. Made in Webflow.</p>
+    </footer>
+
+    <script src="scripts.js"></script>
 </body>
 </html>
