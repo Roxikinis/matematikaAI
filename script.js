@@ -175,7 +175,3 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
-
-// Elfsight AI Chatbot | Matematika AI
-<script src="https://static.elfsight.com/platform/platform.js" async></script>
-<div class="elfsight-app-53d68f67-a4ea-4aa8-8706-bf244fadf6b1" data-elfsight-app-lazy></div>
