@@ -24,7 +24,7 @@ document.addEventListener('mouseup', () => {
 
 // Typing Effect
 const typingText = document.querySelector('.typing-text');
-const texts = ['SJM Developer', 'UI/UX Designer', 'Creative Thinker'];
+const texts = ['Padėti', 'Pasimokyti', 'Nesukčiauti'];
 let textIndex = 0;
 let charIndex = 0;
 let isDeleting = false;
@@ -105,13 +105,6 @@ filterButtons.forEach(button => {
     });
 });
 
-// Contact Form
-const contactForm = document.getElementById('contact-form');
-contactForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    showNotification('Message sent successfully!');
-    contactForm.reset();
-});
 
 // Notification System
 function showNotification(message) {
@@ -125,32 +118,8 @@ function showNotification(message) {
 }
 
 // Back to Top Button
-const backToTop = document.getElementById('back-to-top');
-window.addEventListener('scroll', () => {
-    if (window.scrollY > 500) {
-        backToTop.classList.add('visible');
-    } else {
-        backToTop.classList.remove('visible');
-    }
-});
-
-backToTop.addEventListener('click', () => {
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-    });
-});
 
 // Smooth Scroll
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        target.scrollIntoView({
-            behavior: 'smooth'
-        });
-    });
-});
 
 // Mobile Menu Toggle
 const navToggle = document.querySelector('.nav-toggle');
@@ -191,4 +160,24 @@ profileCard.addEventListener('mousemove', (e) => {
 
 profileCard.addEventListener('mouseleave', () => {
     profileCard.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
+});
+document.addEventListener("DOMContentLoaded", function () {
+    const filterButtons = document.querySelectorAll(".filter-btn");
+    const projectCards = document.querySelectorAll(".project-card");
+
+    filterButtons.forEach(button => {
+        button.addEventListener("click", function () {
+            const filter = this.getAttribute("data-filter");
+
+            // Hide all projects
+            projectCards.forEach(card => {
+                card.style.display = "none";
+            });
+
+            // Show the selected project(s)
+            document.querySelectorAll(`.project-card[data-category="${filter}"]`).forEach(card => {
+                card.style.display = "block";
+            });
+        });
+    });
 });
