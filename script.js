@@ -157,15 +157,25 @@ profileCard.addEventListener('mouseleave', () => {
     profileCard.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
 });
 
-// Chatbot Integration
-window.addEventListener('DOMContentLoaded', () => {
-    const chatbotScript = document.createElement('script');
-    chatbotScript.src = "https://apps.elfsight.com/p/platform.js";
-    chatbotScript.defer = true;
-    document.body.appendChild(chatbotScript);
+document.addEventListener("DOMContentLoaded", function () {
+    const filterButtons = document.querySelectorAll(".filter-btn");
+    const projectCards = document.querySelectorAll(".project-card");
 
-    const chatbotDiv = document.createElement('div');
-    chatbotDiv.classList.add('elfsight-app');
-    chatbotDiv.setAttribute('data-elfsight-app-id', 'YOUR_ELFSIGHT_APP_ID');
-    document.body.appendChild(chatbotDiv);
+    filterButtons.forEach(button => {
+        button.addEventListener("click", function () {
+            const filter = this.getAttribute("data-filter");
+            
+            projectCards.forEach(card => {
+                card.style.display = "none";
+            });
+
+            document.querySelectorAll(`.project-card[data-category="${filter}"]`).forEach(card => {
+                card.style.display = "block";
+            });
+        });
+    });
 });
+
+// Elfsight AI Chatbot | Matematika AI
+<script src="https://static.elfsight.com/platform/platform.js" async></script>
+<div class="elfsight-app-53d68f67-a4ea-4aa8-8706-bf244fadf6b1" data-elfsight-app-lazy></div>
