@@ -105,7 +105,6 @@ filterButtons.forEach(button => {
     });
 });
 
-
 // Notification System
 function showNotification(message) {
     const notification = document.getElementById('notification');
@@ -116,10 +115,6 @@ function showNotification(message) {
         notification.classList.remove('show');
     }, 3000);
 }
-
-// Back to Top Button
-
-// Smooth Scroll
 
 // Mobile Menu Toggle
 const navToggle = document.querySelector('.nav-toggle');
@@ -161,23 +156,16 @@ profileCard.addEventListener('mousemove', (e) => {
 profileCard.addEventListener('mouseleave', () => {
     profileCard.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
 });
-document.addEventListener("DOMContentLoaded", function () {
-    const filterButtons = document.querySelectorAll(".filter-btn");
-    const projectCards = document.querySelectorAll(".project-card");
 
-    filterButtons.forEach(button => {
-        button.addEventListener("click", function () {
-            const filter = this.getAttribute("data-filter");
+// Chatbot Integration
+window.addEventListener('DOMContentLoaded', () => {
+    const chatbotScript = document.createElement('script');
+    chatbotScript.src = "https://apps.elfsight.com/p/platform.js";
+    chatbotScript.defer = true;
+    document.body.appendChild(chatbotScript);
 
-            // Hide all projects
-            projectCards.forEach(card => {
-                card.style.display = "none";
-            });
-
-            // Show the selected project(s)
-            document.querySelectorAll(`.project-card[data-category="${filter}"]`).forEach(card => {
-                card.style.display = "block";
-            });
-        });
-    });
+    const chatbotDiv = document.createElement('div');
+    chatbotDiv.classList.add('elfsight-app');
+    chatbotDiv.setAttribute('data-elfsight-app-id', 'YOUR_ELFSIGHT_APP_ID');
+    document.body.appendChild(chatbotDiv);
 });
