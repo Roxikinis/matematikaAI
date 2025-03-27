@@ -1,4 +1,4 @@
-/* Variables *//
+/* Variables */
 :root {
     --primary-color: #00ff88;
     --secondary-color: #00ffee;
@@ -34,7 +34,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 9998;
+    z-index: 9999;
 }
 
 .loader {
@@ -246,6 +246,10 @@ body {
     transform-style: preserve-3d;
     transition: transform 0.3s;
 }
+.profile-card p{
+   font-size: 1.5rem; /* Adjust size as needed */
+    line-height: 1.6;  /* Improve readability */
+}
 
 .profile-card img {
     width: 200px;
@@ -302,6 +306,7 @@ body {
 }
 
 .project-card {
+    display: none;
     position: relative;
     border-radius: 10px;
     overflow: hidden;
@@ -332,93 +337,6 @@ body {
     bottom: 0;
 }
 
-/* Contact Section */
-.contact {
-    padding: 6rem 2rem;
-    background: rgba(255, 255, 255, 0.02);
-}
-
-.contact-container {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    gap: 4rem;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.contact-info {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-}
-
-.info-item {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-}
-
-.contact-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-}
-
-.form-group {
-    position: relative;
-}
-
-.form-group input,
-.form-group textarea {
-    width: 100%;
-    padding: 1rem;
-    background: var(--card-bg);
-    border: none;
-    border-radius: 5px;
-    color: var(--text-color);
-    font-size: 1rem;
-}
-
-.form-group textarea {
-    height: 150px;
-    resize: none;
-}
-
-.focus-border {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: var(--primary-color);
-    transition: width 0.3s;
-}
-
-.form-group input:focus ~ .focus-border,
-.form-group textarea:focus ~ .focus-border {
-    width: 100%;
-}
-
-/* Back to Top Button */
-.back-to-top {
-    position: fixed;
-    bottom: 2rem;
-    right: 2rem;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s;
-}
-
-.back-to-top.visible {
-    opacity: 1;
-    visibility: visible;
-}
 
 /* Responsive Design */
 @media (max-width: 768px) {
