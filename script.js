@@ -9,7 +9,7 @@ window.addEventListener('load', () => {
 
 //Chatbot message rendering
 document.addEventListener("DOMContentLoaded", function () {
-    // Wait until the chatbot has loaded
+    // Wait for the chatbot to load
     setTimeout(() => {
         const chatContainer = document.querySelector(".elfsight-app");
 
@@ -18,15 +18,31 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        // MutationObserver to detect new messages
+        console.log("Chatbot found, adding MathJax support...");
+
+        // Function to update math formatting
+        function updateMath() {
+            if (window.MathJax) {
+                MathJax.typesetPromise();
+                console.log("MathJax re-rendered equations.");
+            } else {
+                console.error("MathJax not loaded!");
+            }
+        }
+
+        // MutationObserver to detect when chatbot messages change
         const observer = new MutationObserver(() => {
-            MathJax.typesetPromise(); // Re-render math equations when messages change
+            updateMath(); // Re-render math when a new message appears
         });
 
         observer.observe(chatContainer, { childList: true, subtree: true });
 
-    }, 3000); // Delay to ensure the chatbot has loaded
+        // Initial render in case messages already exist
+        updateMath();
+
+    }, 5000); // Delay to ensure the chatbot fully loads
 });
+
 
 // Custom Cursor
 const cursor = document.querySelector('.custom-cursor');
