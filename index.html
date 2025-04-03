@@ -17,6 +17,41 @@
     </script>
     <script async src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+document.addEventListener("DOMContentLoaded", function () {
+    console.log("Page loaded, waiting for chatbot...");
+
+    function waitForChatbot() {
+        const chatContainer = document.querySelector(".elfsight-app");
+
+        if (chatContainer) {
+            console.log("Chatbot found, adding MathJax support...");
+
+            function updateMath() {
+                if (window.MathJax) {
+                    MathJax.typesetPromise();
+                    console.log("MathJax re-rendered equations.");
+                } else {
+                    console.error("MathJax not loaded!");
+                }
+            }
+
+            const observer = new MutationObserver(() => {
+                updateMath();
+            });
+
+            observer.observe(chatContainer, { childList: true, subtree: true });
+            updateMath();
+
+        } else {
+            console.log("Chatbot not found yet, retrying...");
+            setTimeout(waitForChatbot, 1000); // Keep checking every second
+        }
+    }
+
+    waitForChatbot();
+});
+</script>
 
     
 </head>
