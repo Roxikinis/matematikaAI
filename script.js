@@ -7,6 +7,27 @@ window.addEventListener('load', () => {
     }, 1500);
 });
 
+//Chatbot message rendering
+document.addEventListener("DOMContentLoaded", function () {
+    // Wait until the chatbot has loaded
+    setTimeout(() => {
+        const chatContainer = document.querySelector(".elfsight-app");
+
+        if (!chatContainer) {
+            console.error("Chatbot container not found!");
+            return;
+        }
+
+        // MutationObserver to detect new messages
+        const observer = new MutationObserver(() => {
+            MathJax.typesetPromise(); // Re-render math equations when messages change
+        });
+
+        observer.observe(chatContainer, { childList: true, subtree: true });
+
+    }, 3000); // Delay to ensure the chatbot has loaded
+});
+
 // Custom Cursor
 const cursor = document.querySelector('.custom-cursor');
 document.addEventListener('mousemove', (e) => {
