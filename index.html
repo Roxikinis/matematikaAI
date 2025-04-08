@@ -1,62 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Matematika AI</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <!-- Ikonos ir stiliai -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+    <link rel="stylesheet" href="style.css"/>
+    <link rel="icon" type="image/x-icon" href="favicon.ico"/>
+
+    <!-- MathJax nustatymai -->
     <script>
-    window.MathJax = {
-      tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] }
+        window.MathJax = {
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
+            svg: { fontCache: 'global' }
         };
     </script>
-    <script async src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- MathJax + Elfsight integracija -->
     <script>
-document.addEventListener("DOMContentLoaded", function () {
-    console.log("Page loaded, waiting for chatbot...");
+    document.addEventListener("DOMContentLoaded", function () {
+        console.log("🧠 DOM loaded. Waiting for Elfsight chatbot...");
 
-    function waitForChatbot() {
-        const chatContainer = document.querySelector(".elfsight-app");
-
-        if (chatContainer) {
-            console.log("Chatbot found, adding MathJax support...");
-
-            function updateMath() {
-                if (window.MathJax) {
-                    MathJax.typesetPromise();
-                    console.log("MathJax re-rendered equations.");
-                } else {
-                    console.error("MathJax not loaded!");
-                }
+        function observeElfsight() {
+            const portal = document.getElementById("__EAAPS_PORTAL");
+            if (!portal || typeof MathJax === "undefined") {
+                console.log("⏳ Waiting for Elfsight portal...");
+                setTimeout(observeElfsight, 1000);
+                return;
             }
 
+            console.log("✅ Found Elfsight chatbot. Activating MathJax...");
+
             const observer = new MutationObserver(() => {
-                updateMath();
+                MathJax.typesetPromise()
+                  .then(() => console.log("🔢 MathJax re-rendered"))
+                  .catch((err) => console.error("❌ MathJax error", err));
             });
 
-            observer.observe(chatContainer, { childList: true, subtree: true });
-            updateMath();
+            observer.observe(portal, {
+                childList: true,
+                subtree: true
+            });
 
-        } else {
-            console.log("Chatbot not found yet, retrying...");
-            setTimeout(waitForChatbot, 1000); // Keep checking every second
+            MathJax.typesetPromise();
         }
-    }
 
-    waitForChatbot();
-});
-</script>
-
-    
+        observeElfsight();
+    });
+    </script>
 </head>
 <body>
-    
+
     <!-- Loading Screen -->
     <div class="loading-screen">
         <div class="loader"></div>
@@ -92,73 +89,60 @@ document.addEventListener("DOMContentLoaded", function () {
         <div class="particle-background"></div>
         <div class="content">
             <h1 class="glitch" data-text="Creative Developer">Matematika AI</h1>
-            <p class="typing-text"></p></br>
-            <div class="cta-buttons">
-            </div>
+            <p class="typing-text"></p><br/>
+            <div class="cta-buttons"></div>
         </div>
     </section>
 
     <!-- About Section -->
     <section id="about" class="about">
         <h2 class="section-title glow-text">Matematiukas</h2>
-        <iv class="about-content">
+        <div class="about-content">
             <div class="profile-card" data-tilt>
-              <p>Susipažink su išmaniuoju matematikos padėjėju Matematiuku!</p>
-              <p> </p>
-              <p> </p>
-              
-              <p>Tiesiog paspausk roboto mygtuką. Jis yra apačioje, dešinėje pusėje.</p>
-              <p> </p>
-              <p> </p>
-              
-              <p>Jei nežinai kaip naudotis Matematiuku, pasižiūrėk patarimus!</p>
-              <p>Esu įsitikinęs, jog ten rasi naudingos informacijos</p>
-              <p> </p>
-              <p> </p>
-              <p> </p>
-              <p> </p>
-              <p> </p>
-              <p> </p>
-                </div>
+                <p>Susipažink su išmaniuoju matematikos padėjėju Matematiuku!</p>
+                <p> </p><p> </p>
+                <p>Tiesiog paspausk roboto mygtuką. Jis yra apačioje, dešinėje pusėje.</p>
+                <p> </p><p> </p>
+                <p>Jei nežinai kaip naudotis Matematiuku, pasižiūrėk patarimus!</p>
+                <p>Esu įsitikinęs, jog ten rasi naudingos informacijos</p>
+                <p> </p>
+                <p> </p>
+                <p> </p>
+                <p> </p>
+                <p> </p>
+                <p> </p>
+                <p> </p>
+                <p> </p>
+                <p> </p>
             </div>
-           
+        </div>
     </section>
 
     <!-- Projects Section -->
     <section id="projects" class="projects">
         <h2 class="section-title glow-text">Patarimai</h2>
         <div class="filter-buttons">
-            
             <button class="filter-btn" data-filter="web">Pasirinkimas 1</button>
             <button class="filter-btn" data-filter="app">Pasirinkimas 2</button>
             <button class="filter-btn" data-filter="design">Pasirinkimas 3</button>
         </div>
-            <div class="project-card" data-category="web">
-               
-                <div class="project-card" data-category="web">
-                <div class="text-box">
-                    <h3>Informacija1</h3>
-                    <p>Čia gali.</p>
-                  <p> </p>
-                </div>
+        <div class="project-card" data-category="web">
+            <div class="text-box">
+                <h3>Informacija1</h3>
+                <p>Čia gali būti antras teksto laukas.</p>
+                <p> </p>
             </div>
         </div>
-            <div class="project-card" data-category="app">
-
-                <h3>Informacija2</h3>
-             
-                    <p>Čia gali būti antras teksto laukas</p>
-                 <p> </p>
-                </div>
-            </div>
-      <div class="project-card" data-category="design">
-
-                <h3>Informacija3</h3>
-             
-                    <p>Čia gali būti trečias teksto laukas</p>
-                 <p> </p>
-                </div>
-            </div>
+        <div class="project-card" data-category="app">
+            <h3>Informacija2</h3>
+            <p>Čia gali būti antras teksto laukas.</p>
+            <p> </p>
+        </div>
+        <div class="project-card" data-category="design">
+            <h3>Informacija3</h3>
+            <p>Čia gali būti trečias teksto laukas.</p>
+            <p> </p>
+        </div>
     </section>
 
     <!-- Footer Section -->
@@ -166,11 +150,11 @@ document.addEventListener("DOMContentLoaded", function () {
         <p>&copy; 2025 Matematika AI.</p>
     </footer>
 
-  
-
+    <!-- JavaScript -->
     <script src="script.js"></script>
-    <!-- Elfsight AI Chatbot | Matematika AI -->
-<script src="https://static.elfsight.com/platform/platform.js" async></script>
-<div class="elfsight-app-53d68f67-a4ea-4aa8-8706-bf244fadf6b1" data-elfsight-app-lazy></div>
+
+    <!-- Elfsight AI Chatbot -->
+    <script src="https://static.elfsight.com/platform/platform.js" async></script>
+    <div class="elfsight-app-53d68f67-a4ea-4aa8-8706-bf244fadf6b1" data-elfsight-app-lazy></div>
 </body>
 </html>
