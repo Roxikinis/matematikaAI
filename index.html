@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -10,7 +8,7 @@
   <link rel="stylesheet" href="style.css" />
   <link rel="icon" type="image/x-icon" href="favicon.ico" />
 
-  <!-- MathJax konfigūracija turi būti PRIEŠ įkėlimą -->
+  <!-- MathJax konfigūracija -->
   <script>
     window.MathJax = {
       tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
@@ -18,37 +16,37 @@
     };
   </script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+
+  <!-- Chatbot + MathJax integracija -->
   <script>
-document.addEventListener("DOMContentLoaded", function () {
-  function waitForChatbot() {
-    const chatContainer = document.querySelector(".elfsight-app");
+    document.addEventListener("DOMContentLoaded", function () {
+      function waitForChatbotMessages() {
+        const messageContainer = document.querySelector(".widget-window__MessagesContainer-sc-f1226038-0.kqJLFK");
 
-    if (chatContainer) {
-      console.log("Chatbot found, watching for messages...");
+        if (messageContainer) {
+          console.log("✅ Chatbot message container found. Enabling MathJax observer...");
 
-      const observer = new MutationObserver(() => {
-        if (window.MathJax) {
-          MathJax.typesetPromise()
-            .then(() => console.log("MathJax re-rendered chatbot content."))
-            .catch(err => console.error("MathJax render error:", err));
+          const observer = new MutationObserver(() => {
+            if (window.MathJax && window.MathJax.typesetPromise) {
+              MathJax.typesetPromise()
+                .then(() => console.log("📐 MathJax typeset updated"))
+                .catch(err => console.error("❌ MathJax error:", err));
+            }
+          });
+
+          observer.observe(messageContainer, { childList: true, subtree: true });
+          MathJax.typesetPromise(); // Initial render
+        } else {
+          console.log("⏳ Waiting for chatbot message container...");
+          setTimeout(waitForChatbotMessages, 1000);
         }
-      });
+      }
 
-      observer.observe(chatContainer, { childList: true, subtree: true });
-
-      // Pirmas perrenderinimas iš karto
-      MathJax.typesetPromise();
-
-    } else {
-      console.log("Chatbot not found yet, retrying...");
-      setTimeout(waitForChatbot, 1000);
-    }
-  }
-
-  waitForChatbot();
-});
-</script>
+      waitForChatbotMessages();
+    });
+  </script>
 </head>
+
 <body>
 
     <!-- Loading Screen -->
