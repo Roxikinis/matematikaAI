@@ -3,12 +3,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Matematika AI</title>
 
-  <!-- CSS ir favicon -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-  <link rel="stylesheet" href="style.css" />
+  <!-- Favicon -->
   <link rel="icon" type="image/x-icon" href="favicon.ico" />
 
-  <!-- MathJax konfigūracija -->
+  <!-- FontAwesome & Styles -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- MathJax Configuration (Must be BEFORE loading MathJax) -->
   <script>
     window.MathJax = {
       tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
@@ -17,36 +19,43 @@
   </script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
 
-  <!-- Chatbot + MathJax integracija -->
+  <!-- MathJax Re-rendering in Elfsight Chatbot -->
   <script>
     document.addEventListener("DOMContentLoaded", function () {
-      function waitForChatbotMessages() {
-        const messageContainer = document.querySelector(".widget-window__MessagesContainer-sc-f1226038-0.kqJLFK");
+      function waitForChatbot() {
+        const chatContainer = document.querySelector(".elfsight-app");
 
-        if (messageContainer) {
-          console.log("✅ Chatbot message container found. Enabling MathJax observer...");
+        if (chatContainer) {
+          console.log("Chatbot found, setting up MathJax...");
+
+          let timeout = null;
 
           const observer = new MutationObserver(() => {
-            if (window.MathJax && window.MathJax.typesetPromise) {
-              MathJax.typesetPromise()
-                .then(() => console.log("📐 MathJax typeset updated"))
-                .catch(err => console.error("❌ MathJax error:", err));
-            }
+            clearTimeout(timeout);
+            timeout = setTimeout(() => {
+              if (window.MathJax) {
+                MathJax.typesetPromise()
+                  .then(() => console.log("MathJax rendered chatbot math"))
+                  .catch(err => console.error("MathJax error:", err));
+              }
+            }, 300);
           });
 
-          observer.observe(messageContainer, { childList: true, subtree: true });
-          MathJax.typesetPromise(); // Initial render
+          observer.observe(chatContainer, { childList: true, subtree: true });
+
+          // Initial render
+          MathJax.typesetPromise();
+
         } else {
-          console.log("⏳ Waiting for chatbot message container...");
-          setTimeout(waitForChatbotMessages, 1000);
+          console.log("Chatbot not found yet. Retrying...");
+          setTimeout(waitForChatbot, 1000);
         }
       }
 
-      waitForChatbotMessages();
+      waitForChatbot();
     });
   </script>
 </head>
-
 <body>
 
     <!-- Loading Screen -->
