@@ -26,10 +26,21 @@
     function waitForChatMessages() {
       const messages = document.querySelector(".widget-window__MessagesContainer-sc-f1226038-0");
       if (messages && window.MathJax) {
+        // Observer to trigger re-rendering math equations when content is added
         new MutationObserver(() => {
-          MathJax.typesetPromise().catch(err => console.error("MathJax error:", err));
+          // Using MathJax.typeset() for older versions of MathJax
+          if (MathJax.typesetPromise) {
+            MathJax.typesetPromise().catch(err => console.error("MathJax error:", err));
+          } else if (MathJax.typeset) {
+            MathJax.typeset(); // Fallback for older versions
+          }
         }).observe(messages, { childList: true, subtree: true });
-        MathJax.typesetPromise(); // Initial render
+        // Initial render when page loads
+        if (MathJax.typesetPromise) {
+          MathJax.typesetPromise(); // For MathJax 3.x and later
+        } else if (MathJax.typeset) {
+          MathJax.typeset(); // Fallback for older versions
+        }
       } else {
         setTimeout(waitForChatMessages, 500);
       }
@@ -42,11 +53,18 @@
     chatbotButton.addEventListener("click", () => {
       // Delay to make sure DOM is updated after the toggle
       setTimeout(() => {
-        MathJax.typesetPromise().catch(err => console.error("MathJax error:", err));
+        // Re-render math equations
+        if (MathJax.typesetPromise) {
+          MathJax.typesetPromise().catch(err => console.error("MathJax error:", err));
+        } else if (MathJax.typeset) {
+          MathJax.typeset(); // Fallback for older versions
+        }
       }, 300); // Adjust delay if necessary
     });
   });
 </script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
 
 <body>
 
