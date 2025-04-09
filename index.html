@@ -14,37 +14,45 @@
   <script>
     window.MathJax = {
       tex: {
-        inlineMath: [['(', ')'], ['$', '$'], ['\\(', '\\)']],  // Support parentheses, dollar signs, and LaTeX-style delimiters
+        inlineMath: [['$', '$'], ['\\(', '\\)']],  // For inline math (e.g., $...$ or \(...\))
+        displayMath: [['\\[', '\\]']]  // For display math (e.g., \[...\])
       },
       svg: {
         fontCache: 'global'  // Keep the global font cache
       }
     };
-
+  </script>
+  
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  
+  <script>
     document.addEventListener("DOMContentLoaded", () => {
-      // Wait for content updates and re-render MathJax
-      function reRenderMath() {
-        if (MathJax.typesetPromise) {
-          MathJax.typesetPromise().catch(err => console.error("MathJax error:", err));
-        } else if (MathJax.typeset) {
-          MathJax.typeset(); // Fallback for older versions
+      // Function to observe changes in the chat or content area
+      function observeForMath() {
+        const contentArea = document.querySelector('.chat-content');  // Update this with the correct selector for your content area
+
+        if (contentArea) {
+          // Observer to trigger re-rendering math equations when new content is added
+          new MutationObserver(() => {
+            if (MathJax.typesetPromise) {
+              MathJax.typesetPromise().catch(err => console.error("MathJax error:", err));
+            } else if (MathJax.typeset) {
+              MathJax.typeset();  // Fallback for older versions
+            }
+          }).observe(contentArea, { childList: true, subtree: true });
+
+          // Initial rendering on page load
+          if (MathJax.typesetPromise) {
+            MathJax.typesetPromise().catch(err => console.error("MathJax error:", err));
+          } else if (MathJax.typeset) {
+            MathJax.typeset();  // Fallback for older versions
+          }
         }
       }
 
-      // Trigger MathJax on page load
-      reRenderMath();
-
-      // Add observer to re-render math when chat messages are added
-      const chatContainer = document.querySelector('.ButtonBase__ButtonContainer-sc-7041a759-3.eABuri.bubble__StyledFloatingButton-sc-e8a26d94-0.beqXvl.es-bubble-floating-button'); // Update with the correct chat container
-      if (chatContainer) {
-        new MutationObserver(() => {
-          reRenderMath();
-        }).observe(chatContainer, { childList: true, subtree: true });
-      }
+      observeForMath();  // Start observing content changes
     });
   </script>
-
-  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 
 
