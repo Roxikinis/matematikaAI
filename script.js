@@ -7,7 +7,7 @@ window.addEventListener('load', () => {
     }, 1500);
 });
 
-//Chatbot message rendering
+// Chatbot message rendering
 document.addEventListener("DOMContentLoaded", function () {
     // Wait for the chatbot to load
     setTimeout(() => {
@@ -40,9 +40,19 @@ document.addEventListener("DOMContentLoaded", function () {
         // Initial render in case messages already exist
         updateMath();
 
+        // Chatbot button toggle functionality (trigger MathJax re-render)
+        const chatbotButton = document.querySelector("#chatbot-toggle"); // Ensure this matches your button's ID or class
+        if (chatbotButton) {
+            chatbotButton.addEventListener("click", function () {
+                // Wait for chatbot reactivation or deactivation
+                setTimeout(() => {
+                    updateMath(); // Re-render MathJax after chatbot toggle
+                }, 1000); // Delay to ensure any DOM changes have settled
+            });
+        }
+
     }, 5000); // Delay to ensure the chatbot fully loads
 });
-
 
 // Custom Cursor
 const cursor = document.querySelector('.custom-cursor');
@@ -192,23 +202,4 @@ profileCard.addEventListener('mousemove', (e) => {
 
 profileCard.addEventListener('mouseleave', () => {
     profileCard.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
-});
-
-document.addEventListener("DOMContentLoaded", function () {
-    const filterButtons = document.querySelectorAll(".filter-btn");
-    const projectCards = document.querySelectorAll(".project-card");
-
-    filterButtons.forEach(button => {
-        button.addEventListener("click", function () {
-            const filter = this.getAttribute("data-filter");
-            
-            projectCards.forEach(card => {
-                card.style.display = "none";
-            });
-
-            document.querySelectorAll(`.project-card[data-category="${filter}"]`).forEach(card => {
-                card.style.display = "block";
-            });
-        });
-    });
 });
