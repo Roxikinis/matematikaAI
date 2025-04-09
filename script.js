@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", function () {
         updateMath();
 
         // Chatbot button toggle functionality (trigger MathJax re-render)
-        const chatbotButton = document.querySelector("#ButtonBase__ButtonContainer-sc-7041a759-3 eABuri bubble__StyledFloatingButton-sc-e8a26d94-0 beqXvl es-bubble-floating-button"); // Ensure this matches your button's ID or class
+        const chatbotButton = document.querySelector("ButtonBase__ButtonContainer-sc-7041a759-3 eABuri bubble__StyledFloatingButton-sc-e8a26d94-0 beqXvl es-bubble-floating-button"); // Ensure this matches your button's ID or class
         if (chatbotButton) {
             chatbotButton.addEventListener("click", function () {
                 // Wait for chatbot reactivation or deactivation
