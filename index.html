@@ -21,33 +21,6 @@
     }
   };
 
-  document.addEventListener("DOMContentLoaded", () => {
-    function observeForMath() {
-      const contentArea = document.querySelector('.widget-window__MessagesContainer-sc-f1226038-0.kqJLFK');  // Updated selector
-
-      if (contentArea) {
-        // Observer to trigger re-rendering math equations when new content is added
-        new MutationObserver(() => {
-          if (MathJax.typesetPromise) {
-            MathJax.typesetPromise().catch(err => console.error("MathJax error:", err));
-          } else if (MathJax.typeset) {
-            MathJax.typeset();  // Fallback for older versions
-          }
-        }).observe(contentArea, { childList: true, subtree: true });
-
-        // Initial rendering on page load
-        if (MathJax.typesetPromise) {
-          MathJax.typesetPromise().catch(err => console.error("MathJax error:", err));
-        } else if (MathJax.typeset) {
-          MathJax.typeset();  // Fallback for older versions
-        }
-      } else {
-        console.log("Chatbot container not found! Please check the selector.");
-      }
-    }
-
-    observeForMath();
-  });
 </script>
 
   
