@@ -20,49 +20,33 @@
       fontCache: 'global'  // Keep the global font cache
     }
   };
-</script>
-  
-<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
-  <!-- Re-render MathJax on chatbot messages -->
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      let hasRendered = false; // Flag to check if MathJax has already rendered
-
-      function waitForChatMessages() {
-        const messages = document.querySelector(".widget-window__MessagesContainer-sc-f1226038-0");
-
-        if (messages && window.MathJax) {
-          const observer = new MutationObserver(() => {
-            // Only render MathJax if it hasn't already been rendered
-            if (!hasRendered) {
-              MathJax.typesetPromise().catch(err => console.error("MathJax error:", err));
-              hasRendered = true; // Set the flag to true after rendering
-            }
-          });
-
-          observer.observe(messages, { childList: true, subtree: true });
-
-          // Initial render of MathJax content
+  // Wait for chat messages to appear and re-render math
+  document.addEventListener("DOMContentLoaded", () => {
+    function waitForChatMessages() {
+      const messages = document.querySelector(".widget-window__MessagesContainer-sc-f1226038-0");
+      if (messages && window.MathJax) {
+        new MutationObserver(() => {
           MathJax.typesetPromise().catch(err => console.error("MathJax error:", err));
-          hasRendered = true; // Set the flag to true after the first render
-
-          // Disconnect observer after 2 seconds to avoid continuous checks
-          setTimeout(() => {
-            observer.disconnect();
-          }, 2000);
-        } else {
-          // Retry after 1 second if messages container is not found
-          setTimeout(waitForChatMessages, 1000);
-        }
+        }).observe(messages, { childList: true, subtree: true });
+        MathJax.typesetPromise(); // Initial render
+      } else {
+        setTimeout(waitForChatMessages, 500);
       }
+    }
 
-      waitForChatMessages();
+    waitForChatMessages();
+
+    // Function to re-render MathJax when chatbot is toggled
+    const chatbotButton = document.querySelector("#chatbot-toggle-button"); // Replace with your actual button selector
+    chatbotButton.addEventListener("click", () => {
+      // Delay to make sure DOM is updated after the toggle
+      setTimeout(() => {
+        MathJax.typesetPromise().catch(err => console.error("MathJax error:", err));
+      }, 300); // Adjust delay if necessary
     });
-  </script>
-</head>
-
-
+  });
+</script>
 
 <body>
 
