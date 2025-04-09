@@ -18,6 +18,36 @@
     };
   </script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+  <script>
+document.addEventListener("DOMContentLoaded", function () {
+  function waitForChatbot() {
+    const chatContainer = document.querySelector(".elfsight-app");
+
+    if (chatContainer) {
+      console.log("Chatbot found, watching for messages...");
+
+      const observer = new MutationObserver(() => {
+        if (window.MathJax) {
+          MathJax.typesetPromise()
+            .then(() => console.log("MathJax re-rendered chatbot content."))
+            .catch(err => console.error("MathJax render error:", err));
+        }
+      });
+
+      observer.observe(chatContainer, { childList: true, subtree: true });
+
+      // Pirmas perrenderinimas iš karto
+      MathJax.typesetPromise();
+
+    } else {
+      console.log("Chatbot not found yet, retrying...");
+      setTimeout(waitForChatbot, 1000);
+    }
+  }
+
+  waitForChatbot();
+});
+</script>
 </head>
 <body>
 
