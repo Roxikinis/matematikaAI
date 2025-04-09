@@ -4,78 +4,40 @@
   <title>Matematika AI</title>
 
   <!-- Favicon -->
-  <link rel="icon" type="image/x-icon" href="favicon.ico" />
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
 
-  <!-- FontAwesome & Styles -->
+  <!-- FontAwesome & Main Styles -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   <link rel="stylesheet" href="style.css" />
 
-  <!-- MathJax Configuration (Must be BEFORE loading MathJax) -->
+  <!-- MathJax Configuration -->
   <script>
     window.MathJax = {
       tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
       svg: { fontCache: 'global' }
     };
   </script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
-
-
-
-<!-- Smartsupp Live Chat script -->
-<script type="text/javascript">
-var _smartsupp = _smartsupp || {};
-_smartsupp.key = '19be7621315c4279e0ec85edcbf4744bc10f2c24';
-window.smartsupp||(function(d) {
-  var s,c,o=smartsupp=function(){ o._.push(arguments)};o._=[];
-  s=d.getElementsByTagName('script')[0];c=d.createElement('script');
-  c.type='text/javascript';c.charset='utf-8';c.async=true;
-  c.src='https://www.smartsuppchat.com/loader.js?';s.parentNode.insertBefore(c,s);
-})(document);
-</script>
-<noscript> Powered by <a href=“https://www.smartsupp.com” target=“_blank”>Smartsupp</a></noscript>
-
-
-
-
-
-  <!-- MathJax Re-rendering in Elfsight Chatbot -->
+  <!-- Re-render MathJax on chatbot messages -->
   <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      function waitForChatbot() {
-        const chatContainer = document.querySelector(".elfsight-app");
-
-        if (chatContainer) {
-          console.log("Chatbot found, setting up MathJax...");
-
-          let timeout = null;
-
-          const observer = new MutationObserver(() => {
-            clearTimeout(timeout);
-            timeout = setTimeout(() => {
-              if (window.MathJax) {
-                MathJax.typesetPromise()
-                  .then(() => console.log("MathJax rendered chatbot math"))
-                  .catch(err => console.error("MathJax error:", err));
-              }
-            }, 300);
-          });
-
-          observer.observe(chatContainer, { childList: true, subtree: true });
-
-          // Initial render
-          MathJax.typesetPromise();
-
+    document.addEventListener("DOMContentLoaded", () => {
+      function waitForChatMessages() {
+        const messages = document.querySelector(".widget-window__MessagesContainer-sc-f1226038-0");
+        if (messages && window.MathJax) {
+          new MutationObserver(() => {
+            MathJax.typesetPromise().catch(err => console.error("MathJax error:", err));
+          }).observe(messages, { childList: true, subtree: true });
+          MathJax.typesetPromise(); // Initial render
         } else {
-          console.log("Chatbot not found yet. Retrying...");
-          setTimeout(waitForChatbot, 1000);
+          setTimeout(waitForChatMessages, 500);
         }
       }
-
-      waitForChatbot();
+      waitForChatMessages();
     });
   </script>
 </head>
+
 <body>
 
     <!-- Loading Screen -->
