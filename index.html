@@ -1,56 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Matematika AI</title>
-    
-    <!-- Ikonos ir stiliai -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
-    <link rel="stylesheet" href="style.css"/>
-    <link rel="icon" type="image/x-icon" href="favicon.ico"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Matematika AI</title>
 
-    <!-- MathJax nustatymai -->
-    <script>
-        window.MathJax = {
-            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
-            svg: { fontCache: 'global' }
-        };
-    </script>
-    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <!-- CSS ir favicon -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
 
-    <!-- MathJax + Elfsight integracija -->
-    <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        console.log("🧠 DOM loaded. Waiting for Elfsight chatbot...");
-
-        function observeElfsight() {
-            const portal = document.getElementById("__EAAPS_PORTAL");
-            if (!portal || typeof MathJax === "undefined") {
-                console.log("⏳ Waiting for Elfsight portal...");
-                setTimeout(observeElfsight, 1000);
-                return;
-            }
-
-            console.log("✅ Found Elfsight chatbot. Activating MathJax...");
-
-            const observer = new MutationObserver(() => {
-                MathJax.typesetPromise()
-                  .then(() => console.log("🔢 MathJax re-rendered"))
-                  .catch((err) => console.error("❌ MathJax error", err));
-            });
-
-            observer.observe(portal, {
-                childList: true,
-                subtree: true
-            });
-
-            MathJax.typesetPromise();
-        }
-
-        observeElfsight();
-    });
-    </script>
+  <!-- MathJax konfigūracija turi būti PRIEŠ įkėlimą -->
+  <script>
+    window.MathJax = {
+      tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
 </head>
 <body>
 
