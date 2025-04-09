@@ -1,50 +1,54 @@
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Matematika AI</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Matematika AI</title>
+    
+    <!-- Ikonos ir stiliai -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+    <link rel="stylesheet" href="style.css"/>
+    <link rel="icon" type="image/x-icon" href="favicon.ico"/>
 
-  <!-- Favicon -->
-  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    <!-- MathJax nustatymai -->
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
-  <!-- FontAwesome & Main Styles -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-  <link rel="stylesheet" href="style.css" />
+    <!-- MathJax + Elfsight integracija -->
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        console.log("🧠 DOM loaded. Waiting for Elfsight chatbot...");
 
-  <!-- MathJax Configuration -->
-  <script>
-    window.MathJax = {
-      tex: {
-        inlineMath: [['(', ')'], ['$', '$'], ['\\(', '\\)']],  // Support parentheses, dollar signs, and LaTeX-style delimiters
-      },
-      svg: {
-        fontCache: 'global'  // Keep the global font cache
-      }
-    };
+        function observeElfsight() {
+            const portal = document.getElementById("__EAAPS_PORTAL");
+            if (!portal || typeof MathJax === "undefined") {
+                console.log("⏳ Waiting for Elfsight portal...");
+                setTimeout(observeElfsight, 1000);
+                return;
+            }
 
-    document.addEventListener("DOMContentLoaded", () => {
-      // Wait for content updates and re-render MathJax
-      function reRenderMath() {
-        if (MathJax.typesetPromise) {
-          MathJax.typesetPromise().catch(err => console.error("MathJax error:", err));
-        } else if (MathJax.typeset) {
-          MathJax.typeset(); // Fallback for older versions
+            console.log("✅ Found Elfsight chatbot. Activating MathJax...");
+
+            const observer = new MutationObserver(() => {
+                MathJax.typesetPromise()
+                  .then(() => console.log("🔢 MathJax re-rendered"))
+                  .catch((err) => console.error("❌ MathJax error", err));
+            });
+
+            observer.observe(portal, {
+                childList: true,
+                subtree: true
+            });
+
+            MathJax.typesetPromise();
         }
-      }
 
-      // Trigger MathJax on page load
-      reRenderMath();
-
-      // Add observer to re-render math when chat messages are added
-      const chatContainer = document.querySelector('.ButtonBase__ButtonContainer-sc-7041a759-3.eABuri.bubble__StyledFloatingButton-sc-e8a26d94-0.beqXvl.es-bubble-floating-button'); // Update with the correct chat container
-      if (chatContainer) {
-        new MutationObserver(() => {
-          reRenderMath();
-        }).observe(chatContainer, { childList: true, subtree: true });
-      }
+        observeElfsight();
     });
-  </script>
-
-  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    </script>
 </head>
 
 
