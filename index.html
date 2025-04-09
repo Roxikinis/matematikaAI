@@ -14,11 +14,10 @@
 <script>
   window.MathJax = {
     tex: {
-      inlineMath: [['[', ']'], ['\\(', '\\)']],  // Support both square brackets and parentheses for inline math
-      displayMath: [['[[', ']]'], ['\\[', '\\]']] // Support both square brackets and standard display math
+      inlineMath: [['(', ')'], ['$', '$'], ['\\(', '\\)']],  // Support parentheses, dollar signs, and LaTeX-style delimiters
     },
     svg: {
-      fontCache: 'global'
+      fontCache: 'global'  // Keep the global font cache
     }
   };
 </script>
