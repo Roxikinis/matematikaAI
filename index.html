@@ -25,18 +25,27 @@
       function waitForChatMessages() {
         const messages = document.querySelector(".widget-window__MessagesContainer-sc-f1226038-0");
         if (messages && window.MathJax) {
-          new MutationObserver(() => {
+          const observer = new MutationObserver(() => {
             MathJax.typesetPromise().catch(err => console.error("MathJax error:", err));
-          }).observe(messages, { childList: true, subtree: true });
-          MathJax.typesetPromise(); // Initial render
+          });
+          observer.observe(messages, { childList: true, subtree: true });
+          
+          // Initial render
+          MathJax.typesetPromise().catch(err => console.error("MathJax error:", err));
+          
+          // Stop observing after the first successful render
+          setTimeout(() => {
+            observer.disconnect();
+          }, 2000); // Disconnect observer after 2 seconds to avoid overflow
         } else {
-          setTimeout(waitForChatMessages, 500);
+          setTimeout(waitForChatMessages, 1000); // Reduced timeout to avoid infinite loop
         }
       }
       waitForChatMessages();
     });
   </script>
 </head>
+
 
 <body>
 
