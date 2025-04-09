@@ -9,12 +9,17 @@
     <link rel="icon" type="image/x-icon" href="favicon.ico"/>
 
     <!-- MathJax nustatymai -->
-    <script>
-        window.MathJax = {
-            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
-            svg: { fontCache: 'global' }
-        };
-    </script>
+   <script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],  // For inline math (e.g., $...$ or \(...\))
+      displayMath: [['\\[', '\\]']]  // For display math (e.g., \[...\])
+    },
+    svg: {
+      fontCache: 'global'  // Keep the global font cache
+    }
+  };
+</script>
     <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
     <!-- MathJax + Elfsight integracija -->
