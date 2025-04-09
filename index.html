@@ -11,13 +11,18 @@
   <link rel="stylesheet" href="style.css" />
 
   <!-- MathJax Configuration -->
-  <script>
-    window.MathJax = {
-      tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
-      svg: { fontCache: 'global' }
-    };
-  </script>
-  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['[', ']']],  // Use square brackets for inline math
+      displayMath: [['[[', ']]']] // Use double square brackets for display math
+    },
+    svg: {
+      fontCache: 'global'
+    }
+  };
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
   <!-- Re-render MathJax on chatbot messages -->
   <script>
