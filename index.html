@@ -12,49 +12,32 @@
 
   <!-- MathJax Configuration -->
   <script>
-  window.MathJax = {
-    tex: {
-      inlineMath: [['$', '$'], ['\\(', '\\)'], ['[', ']']], // Added support for \[ \]
-    },
-    svg: {
-      fontCache: 'global'  // Keep the global font cache
-    }
-  };
-
-</script>
-
-  
+    window.MathJax = {
+      tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
+      svg: { fontCache: 'global' }
+    };
+  </script>
   <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-  
+
+  <!-- Re-render MathJax on chatbot messages -->
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      // Function to observe changes in the chat or content area
-      function observeForMath() {
-        const contentArea = document.querySelector('.chat-content');  // Update this with the correct selector for your content area
-
-        if (contentArea) {
-          // Observer to trigger re-rendering math equations when new content is added
+      function waitForChatMessages() {
+        const messages = document.querySelector(".widget-window__MessagesContainer-sc-f1226038-0");
+        if (messages && window.MathJax) {
           new MutationObserver(() => {
-            if (MathJax.typesetPromise) {
-              MathJax.typesetPromise().catch(err => console.error("MathJax error:", err));
-            } else if (MathJax.typeset) {
-              MathJax.typeset();  // Fallback for older versions
-            }
-          }).observe(contentArea, { childList: true, subtree: true });
-
-          // Initial rendering on page load
-          if (MathJax.typesetPromise) {
             MathJax.typesetPromise().catch(err => console.error("MathJax error:", err));
-          } else if (MathJax.typeset) {
-            MathJax.typeset();  // Fallback for older versions
-          }
+          }).observe(messages, { childList: true, subtree: true });
+          MathJax.typesetPromise(); // Initial render
+        } else {
+          setTimeout(waitForChatMessages, 500);
         }
       }
-
-      observeForMath();  // Start observing content changes
+      waitForChatMessages();
     });
   </script>
 </head>
+
 
 
 
