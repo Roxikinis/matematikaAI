@@ -62,6 +62,17 @@
   });
 </script>
 
+  <script>
+  setInterval(() => {
+    if (window.MathJax) {
+      MathJax.typesetPromise()
+        .then(() => console.log("🔁 Periodic MathJax render"))
+        .catch(err => console.error("MathJax error:", err));
+    }
+  }, 10000); // Every 10 seconds
+</script>
+
+
 
 </head>
 
