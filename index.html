@@ -22,64 +22,49 @@
   <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
   <!-- Re-render MathJax on chatbot message updates -->
-  <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const targetSelector = ".widget-window__MessagesContainer-sc-f1226038-0";
-
-    function waitForChatbotMessages() {
-      const messageContainer = document.querySelector(targetSelector);
-
-      if (messageContainer && window.MathJax) {
-        let scheduled = false;
-
-        const observer = new MutationObserver((mutationsList) => {
-          const newContent = mutationsList.some(m => m.addedNodes.length > 0);
-          if (newContent && !scheduled) {
-            scheduled = true;
-            requestAnimationFrame(() => {
-              MathJax.typesetPromise()
-                .then(() => {
-                  scheduled = false;
-                  console.log("✅ MathJax re-rendered on new message");
-                })
-                .catch(err => {
-                  scheduled = false;
-                  console.error("❌ MathJax error:", err);
-                });
-            });
-          }
-        });
-
-        observer.observe(messageContainer, { childList: true, subtree: true });
-        MathJax.typesetPromise(); // Initial render
-
-      } else {
-        setTimeout(waitForChatbotMessages, 500); // Retry until chatbot loads
-      }
-    }
-
-    waitForChatbotMessages();
-  });
-</script>
-
  <script>
   let isRendering = false;
 
-  setInterval(() => {
+  function renderMath() {
     if (window.MathJax && !isRendering) {
       isRendering = true;
       MathJax.typesetPromise()
         .then(() => {
           isRendering = false;
-          console.log("🔁 MathJax rendered (5s interval)");
+          console.log("🔁 MathJax rendered");
         })
         .catch(err => {
           isRendering = false;
           console.error("MathJax error:", err);
         });
     }
-  }, 5000); // Now every 5 seconds
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    function waitForChatbot() {
+      const chatContainer = document.querySelector(".elfsight-app");
+
+      if (chatContainer) {
+        console.log("✅ Chatbot found. Setting up MathJax rendering...");
+
+        // MutationObserver with NO delay
+        new MutationObserver(renderMath).observe(chatContainer, {
+          childList: true,
+          subtree: true
+        });
+
+        // Extra safety net: render every 3 seconds
+        setInterval(renderMath, 3000);
+      } else {
+        console.log("⏳ Chatbot not ready, retrying...");
+        setTimeout(waitForChatbot, 1000);
+      }
+    }
+
+    waitForChatbot();
+  });
 </script>
+
 
 
 
