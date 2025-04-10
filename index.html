@@ -62,15 +62,25 @@
   });
 </script>
 
-  <script>
+ <script>
+  let isRendering = false;
+
   setInterval(() => {
-    if (window.MathJax) {
+    if (window.MathJax && !isRendering) {
+      isRendering = true;
       MathJax.typesetPromise()
-        .then(() => console.log("🔁 Periodic MathJax render"))
-        .catch(err => console.error("MathJax error:", err));
+        .then(() => {
+          isRendering = false;
+          console.log("🔁 MathJax rendered (5s interval)");
+        })
+        .catch(err => {
+          isRendering = false;
+          console.error("MathJax error:", err);
+        });
     }
-  }, 10000); // Every 10 seconds
+  }, 5000); // Now every 5 seconds
 </script>
+
 
 
 
