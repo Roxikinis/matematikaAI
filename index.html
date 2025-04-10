@@ -23,21 +23,43 @@
 
   <!-- Re-render MathJax on chatbot message updates -->
   <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      function waitForChatMessages() {
-        const messages = document.querySelector(".widget-window__MessagesContainer-sc-f1226038-0");
-        if (messages && window.MathJax) {
-          new MutationObserver(() => {
-            MathJax.typesetPromise().catch(err => console.error("MathJax error:", err));
-          }).observe(messages, { childList: true, subtree: true });
-          MathJax.typesetPromise(); // Initial render
-        } else {
-          setTimeout(waitForChatMessages, 500);
-        }
+  document.addEventListener("DOMContentLoaded", () => {
+    function waitForChatMessages() {
+      const messages = document.querySelector(".widget-window__MessagesContainer-sc-f1226038-0");
+
+      if (messages && window.MathJax) {
+        let scheduled = false;
+
+        const observer = new MutationObserver(() => {
+          if (!scheduled) {
+            scheduled = true;
+            requestAnimationFrame(() => {
+              MathJax.typesetPromise()
+                .then(() => {
+                  scheduled = false;
+                  console.log("✅ MathJax re-rendered");
+                })
+                .catch(err => {
+                  scheduled = false;
+                  console.error("❌ MathJax error:", err);
+                });
+            });
+          }
+        });
+
+        observer.observe(messages, { childList: true, subtree: true });
+        MathJax.typesetPromise(); // Initial run
+
+      } else {
+        console.log("⏳ Waiting for chatbot...");
+        setTimeout(waitForChatMessages, 500);
       }
-      waitForChatMessages();
-    });
-  </script>
+    }
+
+    waitForChatMessages();
+  });
+</script>
+
 </head>
 
 <body>
