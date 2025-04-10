@@ -24,20 +24,23 @@
   <!-- Re-render MathJax on chatbot message updates -->
   <script>
   document.addEventListener("DOMContentLoaded", () => {
-    function waitForChatMessages() {
-      const messages = document.querySelector(".widget-window__MessagesContainer-sc-f1226038-0");
+    const targetSelector = ".widget-window__MessagesContainer-sc-f1226038-0";
 
-      if (messages && window.MathJax) {
+    function waitForChatbotMessages() {
+      const messageContainer = document.querySelector(targetSelector);
+
+      if (messageContainer && window.MathJax) {
         let scheduled = false;
 
-        const observer = new MutationObserver(() => {
-          if (!scheduled) {
+        const observer = new MutationObserver((mutationsList) => {
+          const newContent = mutationsList.some(m => m.addedNodes.length > 0);
+          if (newContent && !scheduled) {
             scheduled = true;
             requestAnimationFrame(() => {
               MathJax.typesetPromise()
                 .then(() => {
                   scheduled = false;
-                  console.log("✅ MathJax re-rendered");
+                  console.log("✅ MathJax re-rendered on new message");
                 })
                 .catch(err => {
                   scheduled = false;
@@ -47,18 +50,18 @@
           }
         });
 
-        observer.observe(messages, { childList: true, subtree: true });
-        MathJax.typesetPromise(); // Initial run
+        observer.observe(messageContainer, { childList: true, subtree: true });
+        MathJax.typesetPromise(); // Initial render
 
       } else {
-        console.log("⏳ Waiting for chatbot...");
-        setTimeout(waitForChatMessages, 500);
+        setTimeout(waitForChatbotMessages, 500); // Retry until chatbot loads
       }
     }
 
-    waitForChatMessages();
+    waitForChatbotMessages();
   });
 </script>
+
 
 </head>
 
